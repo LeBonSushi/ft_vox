@@ -18,7 +18,7 @@ public:
     Logger() = default;
 
 private:
-    std::string getColorCode(LogType type) const {
+    static std::string getColorCode(LogType type) {
         switch (type) {
             case LOG_ERROR:   return "\033[31m"; // Red
             case LOG_WARNING: return "\033[33m"; // Yellow
@@ -26,10 +26,10 @@ private:
         }
         return "\033[0m";
     }
-	void logInternal(const std::string& message, LogType type) const {
-		auto now = std::chrono::system_clock::now();
+	static void logInternal(const std::string& message, LogType type) {
+		const auto now = std::chrono::system_clock::now();
 		std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-		std::tm tm;
+		std::tm tm{};
 		localtime_r(&now_c, &tm);
 
 		std::string color = getColorCode(type);
@@ -43,10 +43,10 @@ private:
 public:
 
     template<typename First, typename... Rest>
-    void log(LogType type, const First& first, const Rest&... rest) const {
+    static void log(LogType type, const First& first, const Rest&... rest) {
         std::ostringstream oss;
         oss << first;
-        (void)(oss << ... << rest);  // C++17 fold expression
+        (void)(oss << ... << rest);
         logInternal(oss.str(), type);
     }
 };

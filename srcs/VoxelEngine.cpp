@@ -25,13 +25,12 @@ void VoxelEngine::init()
 
 	glfwMakeContextCurrent(m_window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    if (!gladLoadGLLoader(static_cast<GLADloadproc>(glfwGetProcAddress))) {
 		this->setWindowClose();
         return ;
     }
 
 	glfwSetFramebufferSizeCallback(m_window, windowSizeCallback);
-	return ;
 }
 
 void VoxelEngine::run()

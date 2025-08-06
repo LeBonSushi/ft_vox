@@ -17,10 +17,10 @@ class VoxelEngine
 {
 	public:
 		VoxelEngine();
-		~VoxelEngine() = default;
+		~VoxelEngine();
 		void init();
 		void run(); //TODO
-		//void stop(); TODO
+		void stop(); //TODO
 	private:
 		static void windowSizeCallback(GLFWwindow* window, int w, int h);
 		void handleEvents();

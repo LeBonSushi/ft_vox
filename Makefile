@@ -4,13 +4,14 @@ SRCDIR      := srcs
 INCDIR      := includes
 OBJDIR      := obj
 LIBDIR      := lib
+GLM_DIR     := $(LIBDIR)/glm
 
 # Compiler Configuration
 CXX         := g++
 CC          := gcc
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++17 -g
 CFLAGS      := -Wall -Wextra -Werror -g
-INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include
+INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include -I$(GLM_DIR)
 
 # GLFW Libraries
 LIBS        := -lglfw -lGL -lm -ldl
@@ -25,18 +26,30 @@ GLAD_SRC    := $(LIBDIR)/glad/src/glad.c
 OBJS        := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS)) \
                $(OBJDIR)/glad.o
 
+
+
 # Ensure GLAD source exists before building
-BUILD_DEPS := $(GLAD_SRC)
+BUILD_DEPS := $(GLAD_SRC) $(GLM_DIR)
 
 # Main Targets
 .PHONY: all clean fclean re run
 
-all: $(NAME)
+all: $(BUILD_DEPS) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "Linking $(NAME)..."
 	@$(CXX) $(OBJS) $(LIBS) -o $@
 	@echo "✓ Build complete!"
+
+$(GLM_DIR):
+	@echo "Setting up GLM..."
+	@mkdir -p $(LIBDIR)
+	@wget -q -O $(LIBDIR)/glm.zip "https://github.com/g-truc/glm/archive/refs/heads/master.zip"
+	@unzip -q $(LIBDIR)/glm.zip -d $(LIBDIR)
+	@mv $(LIBDIR)/glm-master/glm $(GLM_DIR)
+	@rm -rf $(LIBDIR)/glm.zip $(LIBDIR)/glm-master
+	@echo "✓ GLM setup complete!"
+
 
 # GLAD Source Generation
 $(GLAD_SRC):

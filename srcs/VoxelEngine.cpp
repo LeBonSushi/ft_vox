@@ -19,7 +19,7 @@ void VoxelEngine::init()
 	if (m_window == nullptr)
 	{
 		this->setWindowClose();
-		logger.log(LOG_ERROR, "Failed to initialize the window.");
+		Logger::log(LOG_ERROR, "Failed to initialize the window.");
 		return ;
 	}
 

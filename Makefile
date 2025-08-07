@@ -7,17 +7,17 @@ LIBDIR      := lib
 GLM_DIR     := $(LIBDIR)/glm
 
 # Compiler Configuration
-CXX         := g++
-CC          := gcc
-CXXFLAGS    := -Wall -Wextra -Werror -std=c++17 -g
+CXX         := c++
+CC          := cc
+CXXFLAGS    := -Wall -Wextra -Werror -std=c++20 -g
 CFLAGS      := -Wall -Wextra -Werror -g
-INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include -I$(GLM_DIR)
+INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include -I$(LIBDIR)
 
 # GLFW Libraries
 LIBS        := -lglfw -lGL -lm -ldl
 UNAME_S     := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-    LIBS    += -lX11 -lXrandr -lXinerama -lXcursor -lXi
+    LIBS    += #-lX11 -lXrandr -lXinerama -lXcursor -lXi
 endif
 
 # Source Files

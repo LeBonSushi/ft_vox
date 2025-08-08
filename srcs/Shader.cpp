@@ -166,7 +166,6 @@ int Shader::getUniformLocation(const std::string& name) const
         return it->second;
     }
     
-    // Get location and cache it
     int location = glGetUniformLocation(m_programID, name.c_str());
     m_uniformLocationCache[name] = location;
     

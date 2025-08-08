@@ -9,9 +9,9 @@ GLM_DIR     := $(LIBDIR)/glm
 # Compiler Configuration
 CXX         := c++
 CC          := cc
-CXXFLAGS    := -Wall -Wextra -Werror -std=c++20 -g
-CFLAGS      := -Wall -Wextra -Werror -g
-INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include -I$(LIBDIR)
+CXXFLAGS    := -Wall -Wextra -Werror -std=c++20 -g3 -fPIE
+CFLAGS      := -Wall -Wextra -Werror -g3 -fPIE
+INCLUDES    := -I$(INCDIR) -I$(LIBDIR)/glad/include -I$(LIBDIR) -I$(GLM_DIR)
 
 # GLFW Libraries
 LIBS        := -lglfw -lGL -lm -ldl
